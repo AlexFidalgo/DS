@@ -1,0 +1,9 @@
+rm(list=ls())
+set.seed(0)
+
+n <- 100
+x <- numeric(n)
+for (i in 1:n){
+  x[i] <- sample(1:6, size = 1)
+}
+p1 <- sum(x == 4)/length(x); p1
