@@ -1,4 +1,0 @@
-Acessar o postgresql: psql -Upostgres -hlocalhost
-Mostrar base de dados: \l
-Sair do postgres=#: \q
-Sair do postgres@alex-Inspiron-5423:/home/alex$: exit

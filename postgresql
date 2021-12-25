@@ -1,0 +1,38 @@
+POSTGRESQL DOWNLOAD
+/etc/apt/sources.list.d/pgdg.list
+
+
+BASIC COMMANDS
+Acessar o postgresql (connecting to the server): psql -Upostgres -hlocalhost
+Mostrar base de dados (starting a postgres server instance): \l
+Sair do postgres=# (gets out of the session)(super user prompt, # indicates you are the superuser): \q
+Sair do postgres@alex-Inspiron-5423:/home/alex$: exit (postgres is the super user)
+psql is a client that we run locally
+Name: postgres, template0, template1 are native databases, we better not touch them
+Show tabled: \dt
+
+CREATING A USER AND DATABASE
+postgres=# CREATE USER pg4e WITH PASSWORD 'secret';
+postgres=# CREATE DATABASE people WITH OWNER 'pg4e';
+Now in the database server, we have a new empty database and I have access credentials that I can get into that (the SQL client can now talk to the database)
+
+CONNECTING TO THE DATABASE
+~$ psql people pg4e -hlocalhost
+people=> this is not a super user prompt
+people=> \dt shows the tables inside the database people
+
+CREATING A TABLE
+people=> CREATE TABLE users(name VARCHAR(128), email VARCHAR(128));
+people=> \d+ users shows the schema of the users table
+
+
+
+
+INITIAL DATABASE SETUP
+Host:     pg.pg4e.com 
+Port:     5432 
+Database: pg4e_f02a9f806b 
+User:     pg4e_f02a9f806b 
+Password:  pg4e_p_52ae61cb8760d6a
+
+psql -h pg.pg4e.com -p 5432 -U pg4e_f02a9f806b pg4e_f02a9f806b
