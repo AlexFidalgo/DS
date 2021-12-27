@@ -8,6 +8,11 @@ Mostrar base de dados (starting a postgres server instance): \l
 Sair do postgres=# (gets out of the session)(super user prompt, # indicates you are the superuser): \q
 Sair do postgres@alex-Inspiron-5423:/home/alex$: exit (postgres is the super user)
 psql is a client that we run locally
+$ indica que temos um usuário normal; # é o administrador do sistema
+Os comandos são, em geral, em letras minúsculas. Muitos deles aceitam argumentos. Os argumentos que começam com um (ou dois) “-” são opcionais.
+O pipe (|) é usado para fazer encadeamento de processos, ou seja, faz com que a saída de um comando seja enviada como entrada para o próximo comando.
+O > direciona a saída de um comando para um arquivo ou dispositivo.
+O >>, assim como o >, também direciona a saída de um comando para um arquivo, a diferença é que ele não substitui o conteúdo do arquivo, mas acrescenta ao final.
 Name: postgres, template0, template1 are native databases, we better not touch them
 Show tabled: \dt
 
