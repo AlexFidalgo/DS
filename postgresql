@@ -30,14 +30,24 @@ CREATING A TABLE
 people=> CREATE TABLE users(name VARCHAR(128), email VARCHAR(128));
 people=> \d+ users shows the schema of the users table
 
+WORKING WITH TABLES
+INSERT INTO users (name, email) VALUES ('Chuck', 'csev@umich.edu');
+DELETE FROM users WHERE email = 'ted@umich.edu';
+UPDATE users SET name = 'Charles' WHERE email='csev@umich.edu';
+SELECT * FROM users WHERE name LIKE '%e%';
+SELECT * FROM users ORDER BY email DESC LIMIT 2;
+SELECT * FROM users ORDER BY email OFFSET 1 LIMIT 2;
+SELECT COUNT(*) FROM users WHERE email = 'csev@umich.edu';
+DROP TABLE users;
+CREATE TABLE users (id SERIAL, name VARCHAR(128), email VARCHAR(128) UNIQUE, PRIMARY KEY (id);
+SERIAL is used to generate a sequence of integers which are often used as the Primary key of a table.
+CREATE TABLE animals(
+   id SERIAL PRIMARY KEY,
+   name VARCHAR NOT NULL
+);
 
 
 
-INITIAL DATABASE SETUP
-Host:     pg.pg4e.com 
-Port:     5432 
-Database: pg4e_f02a9f806b 
-User:     pg4e_f02a9f806b 
-Password:  pg4e_p_52ae61cb8760d6a
 
-psql -h pg.pg4e.com -p 5432 -U pg4e_f02a9f806b pg4e_f02a9f806b
+
+
