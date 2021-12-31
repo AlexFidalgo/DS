@@ -1,0 +1,15 @@
+USING PYTHON TO INTERACT WITH THE OPERATING SYSTEM
+
+cat: command that shows the contents of a file
+python3 hello_world.py: executes file
+nano hello_world.py: edit file
+shebang line: #!/usr/bin/env python3 (we add this line on top of the file (from nano) to tell the OS  what command we want to use to execute that script)
+
+To run our file directly, we want it to be executable; so we need: 
+chmod +x hello_world.py 
+Now we can run the file by just prefixing it with a dot slash
+./hello_world.py
+We need the ./ because the script isn't located in any of the directories listed in the path variable. This variable tells the OS where to find executables. The dot 
+represents the current directory (find the script in the current directory and execute it)
+
+vim, atom: linux text editors that have syntax highlighting
