@@ -10,5 +10,17 @@ for (i in 1:n){
 p <- sum(x == 4)/length(x); p
 
 --------------------------------------------
+# Tres pastilhas, cada uma com 0,8 de chance de sucesso
 
+pastilhas = seq(0,3,1)
+prob_suc = 0.8
+plot(pastilhas, dbinom(pastilhas, size=3, prob=prob_suc),
+xlab = "Número de pastilhas que passam no teste", ylab = "Probabilidades",
+main = '', axes = F, type =  "h", col = 'blue')
+points(pastilhas, dbinom(pastilhas, size=3, prob=prob_suc), pch = 16, ,
+col = 'blue')
+axis(1, pastilhas)
+axis(2, seq(0, 0.45, .05), las = 1)
+abline(h=0, col = 'gray', cex = 2.5, lwd = 2)
+box(bty='l')
 
