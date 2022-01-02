@@ -1,0 +1,11 @@
+M <- 1:10 #M is an atomic vector of integers
+attr(M, "dim") <- c(2,5) # M is now a 2x5 matrix
+attr(M, "dim") <- NULL # remove the dimension attribute, M is back to a vector
+
+A <- 1:12
+attr(A, "dim") <- c(2,3,2) # more than 2 dimensions
+
+A data frame in R is internally stored as a list of equal length vectors with a class attribute called data.frame (each column must have the same data types)
+A factor is a vector used to represent categorical values. It is internally stored as an integer vector with levels and class attributes
+gender <- c("M", "F", "F", "X", "M", "F")
+gender_fac <- factor(gender)
