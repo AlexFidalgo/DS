@@ -25,5 +25,10 @@ abline(h=0, col = 'gray', cex = 2.5, lwd = 2)
 box(bty='l')
 
 ------------------------------------------
-
+pastilhas = seq(0,3,1)
+prob_suc = 0.8
+fda <- pbinom(pastilhas, size=3, prob=prob_suc)
+plot(pastilhas, fda, type="s", ylab="F(x)", col=4,
+     xlab = "Número de pastilhas que passam no teste", main = "fda")
+abline(h=0:1, col="red")
 
