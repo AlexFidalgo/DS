@@ -9,3 +9,8 @@ A data frame in R is internally stored as a list of equal length vectors with a 
 A factor is a vector used to represent categorical values. It is internally stored as an integer vector with levels and class attributes
 gender <- c("M", "F", "F", "X", "M", "F")
 gender_fac <- factor(gender)
+
+NA is used to represent missing or unknown values; there are NA for each type
+NULL is used to represent an empty or nonexistent value; NULL is its own data type
+NaN is type double and is used to represent indeterminate forms in mathematics (such as 0/0 or -Inf + Inf)
+
