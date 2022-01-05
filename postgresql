@@ -102,7 +102,7 @@ SELECT student.name, member.role, course.title FROM student
 JOIN member ON member.student_id = student.id
 JOIN course ON member.course_id = course.id;
 
-## Course 2
+##  Course 2
 
 
 
