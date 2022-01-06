@@ -119,6 +119,26 @@ DEFAULT NOW(): database will automatically insert default value for created_at v
 SELECT NOW(), NOW() AT TIME ZONE 'UTC', NOW() AT TIME ZONE 'HST';
 Store time stamps with time zones, prefer UTC for stored time stamps, convert to local time zone when retrieving.
 
+CASTING
+Convert from one type to another
+postgres=# SELECT NOW() ::DATE, CAST(NOW() AS DATE), CAST(NOW() AS TIME);
+:: indicates casting (CAST is another way to do it)
+
+INTERVALS
+We can do date interval arithmetic
+postgres=# SELECT NOW(), NOW() - INTERVAL '2 days', (NOW() - INTERVAL '2 DAYS')::DATE;
+Sometimes we want to discard some of the accuracy that is in a TIMESTAMP
+SELECT id, content, created_at FROM comment WHERE created_at >= DATE_TRUNC('day', NOW()) AND created_at < DATE_TRUNC('day', NOW() + INTERVAL '1 day');
+
+DISTINCT only returns unique rows in a result set - and row will only appear once
+DISTINCT ON limits duplicate removal to a set of columns
+SELECT DISTINCT model FROM racing;
+SELECT DISTINCT ON (model) make, model FROM racing;
+
+SELECT COUNT(abbrev), abbrev FROM pg_timezone_names GROUP BY abbrev;
+SELECT COUNT(abbrev) AS ct, abbrev FROM pg_timezone_names WHERE is_dst = 't' GROUP BY abbrev HAVING COUNT(abbrev) > 10;
+
+
 
 
 
