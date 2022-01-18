@@ -4,6 +4,8 @@ cat: command that shows the contents of a file
 python3 hello_world.py: executes file
 nano hello_world.py: edit file
 shebang line: #!/usr/bin/env python3 (we add this line on top of the file (from nano) to tell the OS  what command we want to use to execute that script)
+#!/usr/bin/env python3 uses the operating system env command, which locates and executes Python by searching the PATH environment variable. Unlike Windows, the Python 
+interpreter is usually already in the $PATH variable on linux, so you don't have to add it.
 
 To run our file directly, we want it to be executable; so we need: 
 chmod +x hello_world.py 
@@ -13,3 +15,33 @@ We need the ./ because the script isn't located in any of the directories listed
 represents the current directory (find the script in the current directory and execute it)
 
 vim, atom: linux text editors that have syntax highlighting
+
+The shutil module offers a number of high-level operations on files and collections of files. In particular, it provides functions that support file copying and removal.
+isk_usage() method is used to get disk usage statistics of the given path. This method returns a named tuple with the attributes total, used, and free. The total attribute 
+represents the total amount of space, the used attribute represents the amount of used space, and the free attribute represents the amount of available space, in bytes.
+psutil (Python system and process utilities) is a cross-platform library for retrieving information on the processes currently running and system utilization (CPU, memory, 
+disks, network, sensors) in Python.
+psutil.cpu_percent() returns a float showing the current system-wide CPU use as a percentage.
+
+Requests is a Python module that you can use to send all kinds of HTTP requests. Features range from passing parameters in URLs to sending custom headers and SSL verification.
+A request is when you ping a website for information.
+You can add headers, form data, multi-part files, and parameters with simple Python dictionaries.You can then access the response data using the same request.
+
+Use nano editor to create a new file network.py: nano network.py
+check_localhost checks whether the local host is correctly configured. We do this by calling the gethostbyname within the function.
+
+#!/usr/bin/env python3
+import requests
+import socket
+def check_localhost():
+        localhost = socket.gethostbyname('localhost')
+        if localhost == '127.0.0.1':
+                return True
+        return False
+def check_connectivity():
+        request = requests.get("http://www.google.com") #This returns the website's status code.
+        if request.status_code() == 200:
+                return True
+        retrurn False
+
+(Estou em um nano de outro python file) To import network module at the beginning of the file: from network import *
