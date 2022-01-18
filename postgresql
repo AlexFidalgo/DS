@@ -4,7 +4,7 @@ POSTGRESQL DOWNLOAD
 /etc/apt/sources.list.d/pgdg.list
 
 BASIC COMMANDS
-Acessar o postgresql (connecting to the server): psql -Upostgres -hlocalhost
+   Acessar o postgresql (connecting to the server): psql -Upostgres -hlocalhost
 Mostrar base de dados (starting a postgres server instance): \l
 Sair do postgres=# (gets out of the session)(super user prompt, # indicates you are the superuser): \q
 Sair do postgres@alex-Inspiron-5423:/home/alex$: exit (postgres is the super user)
