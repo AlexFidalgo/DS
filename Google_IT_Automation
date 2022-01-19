@@ -45,3 +45,54 @@ def check_connectivity():
         retrurn False
 
 (Estou em um nano de outro python file) To import network module at the beginning of the file: from network import *
+
+file = open("spider.txt")
+print(file.readline()) #reads a single line of the file
+print(file.read()) #reads the entire file
+file.close()
+
+with open("spider.txt") as file: #file is automatically closed after the with
+        print(file.readline())
+        
+with open("spider.txt") as file:
+        for line in file:
+                print(line.upper())
+
+with open("spider.txt") as file:
+        for line in file:
+                print(line.strip().upper())
+                
+file = open("spider.txt")
+lines = file.readlines()
+file.close()
+lines.sort()
+print(lines)
+
+with open("novel.txt", "w") as file:
+        file.write("It was a dark and stormy night")
+        
+If you open a file for writing and the file already exists, the old contents will be deleted as soon as the file is opened.
+
+import os 
+os.remove("novel.txt") #deletes file
+os.rename("first_draft.txt", "finished_masterpiece.txt")
+os.path("finished_masterpiece.txt") #returns whether the file exists or not
+os.path.getsize("spider.txt")
+os.path.getmtime("spider.txt") #returns when file was last modified (seconds since 1970)
+import datetime
+timestamp = os.path.getmtime("spider.txt")
+datetime.datetime.fromtimestamp(timestamp)
+os.path.abspath("spider.txt") #returns the absolut path
+
+
+
+
+
+
+
+
+
+
+
+
+
