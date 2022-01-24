@@ -1,0 +1,37 @@
+verb: hash
+make (meat or other food) into a hash.
+chop (meat or vegetables).
+"hash the chicken well and season"
+2.
+come to agreement on something after lengthy and vigorous discussion.
+"they went to the diner to hash out ideas"
+
+A Hash table is a key value lookup. Given a key, you can associate a value with it
+
+stock_prices = {'march 6': 310, 'march 7': 340, 'march 8': 380, 'march 9': 302, 'march 10': 297, 'march 11': 323}
+stock_prices['march 8'] retorna 380
+'march 8' -> hash function -> 380
+We need a hash function. One option is to implement using ascii values:
+'m' -> 109  'a' -> 97 'r' -> 114  'c' -> 99 'h' -> 104  ' ' -> 32 '6' -> 54     sum = 609     mod(609, 10) = 9 (10 is the size of the array). So we get 9
+def get_hash(key):
+  h = 0
+  for char in key:
+  h += ord(char)
+return h % 100
+get_hash('march 6') returns 9
+
+class HashTable:
+  def __init__(self):
+    self.MAX = 100
+    self.arr = [None for i in range(self.MAX)]
+  def get_hash(self, key):
+    h = 0
+    for char in key:
+      h += ord(char)
+    return h % self.MAX
+  def add(self, key, val):
+    h = self.get_has(key)
+    self.arr[h] = val
+  def get(self, key):
+    h = self.get_hash(key)
+    return self.arr[h]
