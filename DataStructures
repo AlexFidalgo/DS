@@ -1,3 +1,5 @@
+----------------------------- HASH TABLE --------------------------------
+
 verb: hash
 make (meat or other food) into a hash.
 chop (meat or vegetables).
@@ -68,7 +70,7 @@ class HashTable:
      self.arr[h] = None
      
 COLLISION HANDLING
-We may use CHAINING
+We may use CHAINING, in which we use linked lists. We may use LINEAR PROBING
 
 
 
