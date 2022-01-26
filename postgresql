@@ -138,6 +138,26 @@ SELECT DISTINCT ON (model) make, model FROM racing;
 SELECT COUNT(abbrev), abbrev FROM pg_timezone_names GROUP BY abbrev;
 SELECT COUNT(abbrev) AS ct, abbrev FROM pg_timezone_names WHERE is_dst = 't' GROUP BY abbrev HAVING COUNT(abbrev) > 10;
 
+To implement atomicity, PostgreSQL locks areas before it starts an SQL command that might change an area of the database. All other access to that area must wait until the area
+is unlock. So instead of
+UPDATE tracks SET count = count + 1 WHERE id = 42
+we could write
+LOCK ROW 42 OF tracks 
+READ count FROM tracks ROW 42
+count = count + 1
+WRITE count TO tracks ROW 42
+UNLOCK ROW 42 OF tracks
+
+
+ON CONFLICT DO
+You may bump into a constraint
+INSERT INTO fav (post_id, account_id, howmuch) VALUES (1,1,1) RETURNING *; will fail because that record had already been inserted, so you may use
+INSERT INTO fav (post_id, account_id, howmuch) VALUES (1,1,1) ON CONFLICT (post_id, account_id) DO UPDATE SET howmuch = fav.howmuch + 1 RETURNING *;
+
+
+
+
+
 
 
 
