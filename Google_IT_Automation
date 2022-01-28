@@ -1,4 +1,4 @@
-USING PYTHON TO INTERACT WITH THE OPERATING SYSTEM
+************** USING PYTHON TO INTERACT WITH THE OPERATING SYSTEM **************
 
 cat: command that shows the contents of a file
 python3 hello_world.py: executes file
@@ -138,6 +138,99 @@ with open('by_department.csv', 'w') as by_department:
         writer = csv.DictWriter(by_department, fieldnames = keys)
         writer.writeheader()
         writer.writerows(users)
+
+REGULAR EXPRESSIONS
+
+log = "July 31 bad_process[12345]: ERROR"
+index = log.index("[")
+print(log[index + 1 : index + 6])
+
+import re 
+log = "July 31 bad_process[12345]: ERROR"
+regex = r"\[(\d+)\]"
+result = re.search(regex, log)
+print(result[1])
+12345
+
+The grep command utilizes regular expressions on Linux, but is not a part of the standard re Python module.
+GREP prints out any line that matches the query that we pass in in the file that we give it. Let's check if we find "thon" inside the /usr/share/dict/words file (this file 
+contains one word per line)
+~$ grep thon /usr/share/dict/words
+This command is case sensitive. If we want to match either lower or uppercase words, we have to add the -i parameter
+~$ grep -i python /usr/share/dict/words
+
+A dot matches any character (wildcard)
+~$ grep l.rts /usr/share/dict/words
+
+The circumflex [^] and the dollar sign [$] are anchor characters. They match the start and end of a line
+^ and $ tell us where in the line the regex should match from (works with the lines, not the individual words)
+^: beggining
+$: end
+Look for all the words that start with string fruit in the file
+~$ grep ^fruit /usr/share/dict/words
+Loof for all the words that end with cat
+~$ grep cat$ /usr/share/dict/words
+
+~$ nano regex.txt
+GNU nano 4.8
+abacate
+minha alma foi embora
+abelha motor
+meu erro foi este
+etanol
+azeite
+as muitas horas tomando leite
+as muitas horas comendo abacate
+~$ grep ^a regex.txt
+abacate
+abelha
+azeite
+as muitas horas tomando leite
+as muitas horas comendo abacate
+~$ grep e$ regex.txt
+abacate
+meu erro foi este
+azeite
+as muitas horas tomando leite
+as muitas horas comendo abacate
+~$ grep -e ^a -e e$ regex.txt
+abacate
+abelha
+meu erro foi este
+azeite
+as muitas horas tomando leite
+as muitas horas comendo abacate
+
+r indicates that we're dealing with a rawstring (the python interpreter shouldn't try to interpret any special characters, instead should just pass the string to the function
+as is
+import re 
+result = re.search(r"aza", "plaza")
+print(result)
+<re.Match object; span=(2, 5), match='aza'>
+
+print(re.search(r"^x", "xenon"))
+<re.Match object; span=(0,1), match='x'>
+
+print(re.search(r"p.ng", "penguin")
+<re.Match object; span=(0,4), match='peng'>
+
+def check_aei (text):
+  result = re.search(r"a.e.i", text)
+  return result != None
+print(check_aei("academia")) # True
+print(check_aei("aerial")) # False
+print(check_aei("paramedic")) # True
+
+print(re.search(r"p.ng", "Pangaea", re.IGNORECASE))
+<re.Match object; span=(0,4), match='Pang'>
+
+
+
+
+
+
+
+
 
 
 
