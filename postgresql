@@ -138,8 +138,8 @@ SELECT DISTINCT ON (model) make, model FROM racing;
 SELECT COUNT(abbrev), abbrev FROM pg_timezone_names GROUP BY abbrev;
 SELECT COUNT(abbrev) AS ct, abbrev FROM pg_timezone_names WHERE is_dst = 't' GROUP BY abbrev HAVING COUNT(abbrev) > 10;
 
-To implement atomicity, PostgreSQL locks areas before it starts an SQL command that might change an area of the database. All other access to that area must wait until the area
-is unlock. So instead of
+To implement atomicity, PostgreSQL locks areas before it starts an SQL command that might change an area of the database. All other access to that area must wait until the 
+area is unlock. So instead of
 UPDATE tracks SET count = count + 1 WHERE id = 42
 we could write
 LOCK ROW 42 OF tracks 
@@ -152,6 +152,7 @@ ON CONFLICT DO
 You may bump into a constraint
 INSERT INTO fav (post_id, account_id, howmuch) VALUES (1,1,1) RETURNING *; will fail because that record had already been inserted, so you may use
 INSERT INTO fav (post_id, account_id, howmuch) VALUES (1,1,1) ON CONFLICT (post_id, account_id) DO UPDATE SET howmuch = fav.howmuch + 1 RETURNING *;
+The RETURNING keyword lets us see the resulting values when a record is inserted or updated
 
 BEGIN;
 SELECT howmuch FROM fav WHERE account_id = 1 AND post_id = 1 FOR UPDATE OF fav; #FOR UPDATE OF will lock the row; will be unlocked when there's an update of fav
@@ -159,7 +160,7 @@ SELECT howmuch FROM fav WHERE account_id = 1 AND post_id = 1 FOR UPDATE OF fav; 
 STORED PROCEDURES
 
 CREATE OR REPLACE FUNCTION trigger_set_timestamp()
-RETURN TRIGGER AS $$                                  # TRIGGER runs either before or after some stamement runs
+RETURNS TRIGGER AS $$                                  # TRIGGER runs either before or after some stamement runs
 BEGIN                                                 # between BEGIN and END we have the actual code for our procedure
    NEW.updated_at = NOW();                           # NEW: whenever something happens to this record, set updated_at equals to now
    RETURN NEW;
@@ -174,9 +175,17 @@ EXECUTE PROCEDURE trigger_set_timestamp();
 UPDATE fav SET howmuch = howmuch + 1
 WHERE post_id = 1 AND account_id = 1;
 
+Another option to create the same function:
 
+CREATE FUNCTION upd_trig() RETURNS trigger
+   LANGUAGE plpgsql AS
+$$BEGIN
+   NEW.updated_at := current_timestamp;
+   RETURN NEW;
+END;$$;
 
-
+CREATE TRIGGER upd_trig BEFORE UPDATE ON keyvalue
+   FOR EACH ROW EXECUTE PROCEDURE upd_trig();
 
 
 
