@@ -148,11 +148,33 @@ count = count + 1
 WRITE count TO tracks ROW 42
 UNLOCK ROW 42 OF tracks
 
-
 ON CONFLICT DO
 You may bump into a constraint
 INSERT INTO fav (post_id, account_id, howmuch) VALUES (1,1,1) RETURNING *; will fail because that record had already been inserted, so you may use
 INSERT INTO fav (post_id, account_id, howmuch) VALUES (1,1,1) ON CONFLICT (post_id, account_id) DO UPDATE SET howmuch = fav.howmuch + 1 RETURNING *;
+
+BEGIN;
+SELECT howmuch FROM fav WHERE account_id = 1 AND post_id = 1 FOR UPDATE OF fav; #FOR UPDATE OF will lock the row; will be unlocked when there's an update of fav
+
+STORED PROCEDURES
+
+CREATE OR REPLACE FUNCTION trigger_set_timestamp()
+RETURN TRIGGER AS $$                                  # TRIGGER runs either before or after some stamement runs
+BEGIN                                                 # between BEGIN and END we have the actual code for our procedure
+   NEW.updated_at = NOW();                           # NEW: whenever something happens to this record, set updated_at equals to now
+   RETURN NEW;
+END;
+$$ LANGUAGE plpsgsql;
+
+CREATE TRIGGER set_timestamp                       # When an update statement happens. The DEFAULT NOW() when creating the table only works for INSERT statements
+BEFORE UPDATE ON fav
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
+
+UPDATE fav SET howmuch = howmuch + 1
+WHERE post_id = 1 AND account_id = 1;
+
+
 
 
 
