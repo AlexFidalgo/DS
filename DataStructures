@@ -1,3 +1,39 @@
+----------------------------- LINKED LIST --------------------------------
+Indexing in an array takes O(1); in a linked list it's O(n).
+Insert/delete element at start takes O(n) for an array and O(1) for a linked list.
+
+class Node:
+
+  def __init__(self, data=None, next=None):
+    self.data = data
+    self.next = next
+
+class LinkedList:
+  
+  def __init__(self):
+    self.head = None
+    
+  def insert_at_beginning (self, data):
+    node = Node(data, self.head)
+    self.head = node
+  
+  def print(self):
+    if self.head is None:
+      print("Linked List is empty)
+      return
+    itr = self.head
+    lls = ''
+    while itr:
+    lls = lls + str(itr.data) + ' --> '
+      itr = itr.next
+    print(lls) 
+
+ll = LinkedList()
+ll.insert_at_beginning(5)
+ll.insert_at_beginning(8)
+ll.print()
+
+
 ----------------------------- HASH TABLE --------------------------------
 
 verb: hash
