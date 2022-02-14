@@ -186,6 +186,20 @@ END;$$;
 
 CREATE TRIGGER upd_trig BEFORE UPDATE ON keyvalue
    FOR EACH ROW EXECUTE PROCEDURE upd_trig();
+   
+READING AND PARSING FILES
+~$ wget https:// pg4e.net/lectures/03-Techniques-Load.sql
+Agora temos o arquivo 03-Techniques-Load.sql no diretório
+pg4e => \i 03-Techniques-Load.sql
+Agora, o conteúdo do 03-Techniques-Load.sql foi inserido na base de dados
+
+pg4e => \copy xy_raw(x,y) FROM '03-Techniques.csv' WITH DELIMITER ',' CSV;
+Now, all the records contained in the csv file have been inserted into the xy_raw table (x and y are two columns of that table)
+
+SELECT DISTINCT y from xy_raw;
+INSERT INTO y (y) SELECT DISTINCT y FROM xy_raw
+The result obtained from the select statement is inserted as records into the y table (specifically, the y column)
+UPDATE xy_raw SET y_id = (SELECT y.id FROM y WHERE y.y = xy_raw.y);
 
 
 
