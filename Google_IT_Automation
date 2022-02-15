@@ -277,6 +277,57 @@ print(re.search(r"p?each", "To each their own")) #the p is optional
 print(re.search(r"p?each", "I like peaches"))
 <re.Match object; span=(7, 12), match='peach'>
 
+\ allows for searching special characters
+print(re.search(r"\.com", "welcome"))
+None
+print(re.search(r"\.com", "alex@usp.com"))
+<re.Match object; span=(8, 12), match='.com'>
+
+\w matches any alphanumeric character, including letters, numbers and underscores
+print(re.search(r"\w*", "This is"))
+<re.Match object; span=(0, 4), match='This'>
+print(re.search(r"\w*", "And_this_is"))
+<re.Match object; span=(0, 11), match='And_this_is'>
+
+\d matches digits; \s matches whitespace characters (like space, tab and newline); \b matches word boundaries
+
+Check if the text passed has at least 2 groups of alphanumeric characters (including letters, numbers, and underscores) separated by one or more whitespace characters.
+import re
+def check_character_groups(text):
+  result = re.search(r"\w\s\w", text)
+  return result != None
+print(check_character_groups("One")) # False
+print(check_character_groups("123  Ready Set GO")) # True
+print(check_character_groups("username user_01")) # True
+print(check_character_groups("shopping_list: milk, bread, eggs.")) # False
+
+print(re.search(r"A.*a", "Argentina"))
+<re.Match object; span=(0, 9), match='Argentina'>
+print(re.search(r"A.*a", "Azerbaijan"))
+<re.Match object; span=(0, 9), match='Azerbaija'>
+print(re.search(r"^A.*a$", "Azerbaijan"))
+None
+print(re.search(r"^A.*a$", "Argentina"))
+<re.Match object; span=(0, 9), match='Argentina'>
+
+^[-a-zA-Z0-9_.]*$
+^ = Match from the start of the input
+[-a-zA-Z0-9_.] = A character class (a list of allowed characters):
+- matches the literal '-' character (must be the first or last character in the class)
+a-z matches lowercase alpha characters
+A-Z matches uppercase alpha characters
+0-9 matches the numeric characters
+_ matches the literal '_' character
+. matches the literal '.' character (unlike outside a character class, where it matches any character)
+* = Match 0 to infinite characters (use + to match at least one character)
+$ = Match to the end of the string
+
+A variable name must start with a letter, can contain any number of letters, numbers or underscores
+pattern = r"^[a-zA-Z_][a-zA-Z0-9_]*$"
+print(re.search(pattern, "_this_is_valid"))
+<re.Match object; span=(0, 14), match='_this_is_valid'>
+print(re.search(pattern, "_this is not"))
+None
 
 
 
