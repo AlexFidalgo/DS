@@ -224,7 +224,58 @@ print(check_aei("paramedic")) # True
 print(re.search(r"p.ng", "Pangaea", re.IGNORECASE))
 <re.Match object; span=(0,4), match='Pang'>
 
+print(re.search(r"[Pp]ython", "python")) # will match both Python and python
+<re.Match object; span=(0, 6), match='python'>
 
+[a-z] will match any lowercase letter
+print(re.search(r"[a-z]way", "The end of the highway"))
+<re.Match object; span=(18, 22), match='hway'>
+print(re.search(r"[a-z]way", "What a way to go"))
+None
+
+print(re.search(r"cloud[a-zA-Z0-9]", "cloudy"))
+<re.Match object; span=(0, 6), match='cloudy'>
+print(re.search(r"cloud[a-zA-Z0-9]", "cloud9"))
+<re.Match object; span=(0, 6), match='cloud9'>
+print(re.search(r"cloud[a-9]", "cloud9"))
+error: bad character range a-9
+
+[^] searches for characters that aren't in the group
+print(re.search(r"[^a-zA-Z]", "This is a sentence with spaces."))
+<re.Match object; span=(4, 5), match=' '>
+print(re.search(r"[^a-zA-Z ]", "This is a sentence with spaces."))
+<re.Match object; span=(30, 31), match='.'>
+
+| alternative options
+print(re.search(r"cat|dog", "I like cats."))
+<re.Match object; span=(7, 10), match='cat'>
+
+findall returns all matches, not just the first one like search
+
+print(re.findall(r"cat|dog", "I like both dogs and cats."))
+['dog', 'cat']
+
+.* matches any character repeated as many times as possible, including zero
+print(re.search(r"Py.*n", "Pygmalion"))
+<re.Match object; span=(0, 9), match='Pygmalion'>
+print(re.search(r"Py.*n", "Python programming")) #exhibits greedy behavior
+<re.Match object; span=(0, 17), match='Python programmin'>
+print(re.search(r"Py[a-z]*n", "Python programming"))
+<re.Match object; span=(0, 6), match='Python'>
+
++ matches one or more occurrences of the character that comes before it
+print(re.search(r"o+l+", "goldfish"))
+<re.Match object; span=(1, 3), match='ol'>
+print(re.search(r"o+l+", "goooooolllllldfish"))
+<re.Match object; span=(1, 13), match='oooooollllll'>
+print(re.search(r"o+l+", "boil"))
+None
+
+? matches either zero or one occurrence of the character before it
+print(re.search(r"p?each", "To each their own")) #the p is optional
+<re.Match object; span=(3, 7), match='each'>
+print(re.search(r"p?each", "I like peaches"))
+<re.Match object; span=(7, 12), match='peach'>
 
 
 
