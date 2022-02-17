@@ -328,6 +328,8 @@ print(re.search(pattern, "_this_is_valid"))
 <re.Match object; span=(0, 14), match='_this_is_valid'>
 print(re.search(pattern, "_this is not"))
 None
+print(re.search(pattern, "a"))
+<re.Match object; span=(0, 1), match='a'>
 
 Check if the text passed looks like a standard sentence, meaning that it starts with an uppercase letter, followed by at least some lowercase letters or a space, and ends 
 with a period, question mark, or exclamation point.
@@ -341,10 +343,52 @@ print(check_sentence("Hello")) # False
 print(check_sentence("1-2-3-GO!")) # False
 print(check_sentence("A star is born.")) # True
 
+import re
+def check_web_address(text):
+  pattern = r'^[A-Za-z._-]*$'
+  result = re.search(pattern, text)
+  return result != None
+print(check_web_address("gmail.com")) # True
+print(check_web_address("www@google")) # False
+print(check_web_address("www.Coursera.org")) # True
+print(check_web_address("web-address.com/homepage")) # False
+print(check_web_address("My_Favorite-Blog.US")) # True
 
+import re
+def check_time(text):
+  pattern = r"\b((1[0-2]|1?[1-9]):([0-5][0-9])( ?([AaPp][Mm])))"
+  result = re.search(pattern, text)
+  return result != None
+print(check_time("12:45pm")) # True
+print(check_time("9:59 AM")) # True
+print(check_time("6:60am")) # False
+print(check_time("five o'clock")) # False
 
+import re
+def check_zip_code (text):
+  result = re.search(r" \d{5}| \d{5}-\d{4}", text)
+  return result != None
+print(check_zip_code("The zip codes for New York are 10001 thru 11104.")) # True
+print(check_zip_code("90210 is a TV show")) # False
+print(check_zip_code("Their address is: 123 Main Street, Anytown, AZ 85258-0001.")) # True
+print(check_zip_code("The Parliament of Canada is at 111 Wellington St, Ottawa, ON K1A0A9.")) # False
 
+Capturing groups: portions of the pattern that are enclosed in parentheses
+last_name,first_name
+result = re.search(r"^(\w*), (\w*)$", "Sandler, Adam")
+<re.Match object; span=(0, 13), match='Sandler, Adam'>
+print(result.groups())
+('Sandler', 'Adam')
+result[0]
+Out[12]: 'Sandler, Adam'
+result[1]
+Out[13]: 'Sandler'
+result[2]
+Out[14]: 'Adam'
+result[3]
+IndexError: no such group
 
+capturing groups 2:30
 
 
 
