@@ -456,9 +456,43 @@ else:
 >>> subprocess.run(["date"])
 Tue 07 Jan 2020 02:34:44 PM PST
 CompletedProcess(args=['date'], returncode = 0)
+>>> subprocess.run(["sleep", "2"])
+CompletedProcess(args=['sleep', '2'], returncode = 0)
+>>> result = subprocess.run(["ls", "this_file_does_not_exist"])
+ls: cannot access 'this_file_does_not_exist': No such file or directory
+>>> print(result.returncode)
+2
+2 indicated there was an error
 
+who command: indicates the users currently logged into a computer
+host command: converts a host name to an IP address and vice versa
 
+>>> result = subprocess.run(["host", "8.8.8.8"], capture_output = True)
+>>> print(result.returncode)
+0
+>>> print(result.stdout)
+b'8.8.8.8.in-addr.arpa domain name pointer dns.google.\n'
+b indicates that this is not a proper string for python, it's actually an array of bytes. When we execute the command using run, Python doesn't know which 
+encoding to use to process the output of the command, so it simply represents it as a series of bytes. If we want this to become a proper string, we use the 
+decode method; by default, decode uses a UTF-8 encoding
+>>> print(result.stdout.decode().split())
+['8.8.8.8.in-addr.arpa', 'domain', 'name', 'pointer, 'dns.google.']
 
+>>> result = subprocess.run(["rm", "does_not_exist"], capture_output = True)
+>>> print(result.returncode)
+1
+>>> print(result.stdout)
+b''
+>>> print(result.stderr)
+b"rm: cannot remove 'does_not_exist': No such file or directory\n"
+
+The PATH variable indicates where the operating system will look for the executable programs 
+~$ atom myapp.py
+import os
+import subprocess
+my_env = os.environ.copy() #copying the os environ dictionary (contains the current environment variables)
+my_env["PATH"] = os.pathsep.join(["/opt/myapp/", my_env["PATH"]]) #we are adding one extra directory to the PATH variable
+result = subprocess.run(["myapp"], env=my_env)
 
 
 
