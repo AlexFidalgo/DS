@@ -505,17 +505,24 @@ Jul 6 14:04:01 computer.name CRON[29440]: USER (naughty_user)
 import sys
 import re
 logfile = sys.argv[1] #sys.argv is a list which contains the command-line arguments passed to the script; sys.argv[0] is the name of the script
+usernames = {}
 with open(logfile) as f:
         for line in f:
                 if "CRON" not in line:
                         continue
                 pattern = r"USER \((\w+)\)$"
                 result = re.search(pattern, line)
-                print(result[1])
+                if result is None:
+                        continue
+                name = result[1]
+                usernames[name] = usernames.get(name,0) + 1
+print(usernames)
 Since the username is found at the end of the log line, we use the dollar sign anchor to only match text that is at the end of the line. To find the username, 
 we look for the word user followed by a string wrapped in parentheses (we need to escape those parentheses with a backslash). We use another couple of 
 parentheses to create a capturing group; for the username itself, we're matching any alphanumeric characters \w+
 No windows, se eu abrir o anaconda prompt, vou até o diretorio do script e arquivo e escrevo > python py.py "syslog.txt"
+
+
 
 
 
