@@ -522,7 +522,45 @@ we look for the word user followed by a string wrapped in parentheses (we need t
 parentheses to create a capturing group; for the username itself, we're matching any alphanumeric characters \w+
 No windows, se eu abrir o anaconda prompt, vou até o diretorio do script e arquivo e escrevo > python py.py "syslog.txt"
 
+TESTING
 
+Unit tests are used to verify that small, isolated parts of a program are correct.
+
+import re
+def rearrange_name(name):
+        result = re.search(r"^([\w .]*), ([\w .]*)$", name)
+        return "{} {}".format(result[2], result[1])
+import unittest
+class TestRearrange(unittest.TestCase):
+        def test_basic(self):
+                testcase = "Lovelace, Ada"
+                expected = "Ada Lovelace"
+                self.assertEqual(rearrange_name(testcase), expected)
+unittest.main()
+OUTPUT: Ran 1 test in 0.011s    OK
+
+import re
+def rearrange_name(name):
+        result = re.search(r"^([\w .]*), ([\w .]*)$", name)
+        return "{} {}".format(result[2], result[1])
+import unittest
+class TestRearrange(unittest.TestCase):
+        def test_basic(self):
+                testcase = "Lovelace, Ada"
+                expected = "Ada Lovelace"
+                self.assertEqual(rearrange_name(testcase), expected)
+        def test_empty(self):
+                testcase = ""
+                expected = ""
+                self.assertEqual(rearrange_name(testcase), expected)
+unittest.main()
+OUTPUT: Ran 2 tests in 0.002s   FAILED (errors=1)
+This is an edge case problem. To deal with it:
+def rearrange_name(name):
+        result = re.search(r"^([\w .]*), ([\w .]*)$", name)
+        if result is None:
+                return ""
+        return "{} {}".format(result[2], result[1])
 
 
 
