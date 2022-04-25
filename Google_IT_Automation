@@ -561,9 +561,52 @@ def rearrange_name(name):
         if result is None:
                 return ""
         return "{} {}".format(result[2], result[1])
+        def test_one_name(self):
+                testcase = "Voltaire"
+                expected = "Voltaire"
+                self.assertEqual(rearrange_name(testcase), expected)
+  AssertionError
+def rearrange_name(name):
+        result = re.search(r"^([\w .]*), ([\w .]*)$", name)
+        if result is None:
+                return name
+        return "{} {}".format(result[2], result[1])
 
+White-box testing: relies on the test creator's knowledge of the software being tested to construct the test cases
+Black-box testing: the tester doesn't know the internals of how the software works; it's written with an awareness of what the program is supposed to do, but not how
+it does it
 
+Test-Driven Development: relies on software requirements being converted to test cases before software is fully developed, and tracking all software development by 
+repeatedly testing the software against all test cases.
 
+def character_frequency(filename):
+        """Counts the frequency of each character in a given file."""
+        try:
+                f = open(filename)
+        except OSError:
+                return None
+        characters = {}
+        for line in f:
+                for char in line:
+                        characters[char] = characters.get(char, 0) + 1
+        f.close()
+        return characters
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
 
 
