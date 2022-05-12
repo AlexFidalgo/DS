@@ -615,7 +615,28 @@ class TestValidateUser (unittest.TestCase):
                 self.assertRaises(ValueError, validate_user, "user", -1)
 unittest.main()
         
-        
+BASH SCRIPTING
+
+echo: prints messages to the screen
+cat: shows contents of files
+ls: lists contents of a directory
+chmod: change permissions of a file
+mkdir: creates directory
+cd: changes directory
+cp: copies file
+mv: moves or renames a file
+
+..: reverses to the previous directory in the absolute path
+.: reverses to the current directory
+
+$ cp ../spyder.txt . (copies the spyder.txt file located in the previous directory to this directory)
+$ touch myfile.txt (creates an empty file)
+$ mv myfile.txt emptyfile.txt (renames file)
+$ cp spyder.txt yetanotherfile.txt (creates a copy of spyder.txt)
+$ rm * (removes all files)
+$ rmdir mynewdir/ (deletes directory)
+
+REDIRECTING STREAMS DFKJLHASDFEWNKQERWNFKJEFNÇODFNLAÇSDNFEHFSADKÇFN
         
         
         
