@@ -620,7 +620,7 @@ BASH SCRIPTING
 echo: prints messages to the screen
 cat: shows contents of files
 ls: lists contents of a directory
-chmod: change permissions of a file
+chmod: changes permissions of a file
 mkdir: creates directory
 cd: changes directory
 cp: copies file
@@ -636,49 +636,61 @@ $ cp spyder.txt yetanotherfile.txt (creates a copy of spyder.txt)
 $ rm * (removes all files)
 $ rmdir mynewdir/ (deletes directory)
 
-REDIRECTING STREAMS DFKJLHASDFEWNKQERWNFKJEFNÇODFNLAÇSDNFEHFSADKÇFN
+> overwrites
+>> appends
+$ cat stdout_example.py
+#!/usr/bin/env python3
+print("Just a bit of text")
+$ ./stdout_example.py > new_file.txt
+$ cat new_file.txt
+Just a bit of text
+$ ./stdout_example.py >> new_file.txt
+$ cat new_file.txt
+Just a bit of text
+Just a bit of text
+
+2> redirects errors
+$ cat streams_err.py
+#!/usr/bin/env python3
+data = input("This will come from STDIN: ")
+print("Now we write it to STDOUT: " + data)
+raise ValueError("Now we generate an error to STDERR")
+$ ./streams_err.py < new_file.txt
+This will come from STDIN: Now we write it to STDOUT: Just a bit of text
+ValueError: Now we generate an error to STDERR
+$ ./streams_err.py < new_file.txt 2> error_file.txt
         
+$ echo "These are the contents of the file" > myfile.txt
+$ cat myfile.txt
+These are the contents of the file
         
-        
-        
-        
-        
-        
-        
-        
-        
+PIPES connect the output of one program to the input of another in order to pass data between programs
+|: pipe command
+$ ls -l | less
+Here the output of the ls -l command is connected to the input of the less, which is a terminal paging program
 
+tr command: translate; takes the characters in the first parameter and then transforms them into a character in the second parameter
+uniq command: displays each match once
+-c flag: prefixes each unique line with a number of times it occurred
+-nr: sorts results numerically and in reverse order, from most to least hits
+head command: prints the first 10 lines to stdl
+$ cat spider.txt | tr ' ' '\n' | sort | uniq -c | sort -nr | head
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Python can read from standard input using the stdin file object provided by the sys module
+$ cat capitalize.py
+#!/usr/bin/env python3
+import sys
+for line in sys.stdin:
+        print(line.strip().capitalize())
+$ cat haiku.txt
+advance the fight,
+automate it all.
+$ cat haiku.txt | ./capitalize.py
+Advance the fight,
+Automate it all.
+$ ./capitalize.py < haiku.txt
+Advance the fight,
+Automate it all.
 
 
 
