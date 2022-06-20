@@ -847,10 +847,10 @@ while ! $command && [ $n -le 5 ]; do
         echo "Retry #$n"
 done;
 
-$1 returns the first command line argument (same as sys.argv[1])
+$1 (dollar-sign followed by one) returns the first command line argument (same as sys.argv[1])
 If the received command fails, we will retry up to 5 times
 
-$ ./retry.sh ./random-exit.py
+$ ./retry.sh ./random-exit.py       (random-exit is the command line argumento to retry)
 Returning: 1
 Retry #1
 Returning: 3
@@ -858,6 +858,52 @@ Retry #2
 Returning: 1
 Retry #3
 Returning: 0
+
+$ cat fruits.sh
+for fruit in peach orange apple; do
+        echo "I like $fruit!"
+done
+
+$ cd old_website/
+ls -l
+about.HTM
+contact.HTM
+footer.HTM
+header.HTM
+index.HTM
+
+basename: command that takes a filename and an extension and then returns the name without the extension
+$ basename index.HTM .HTM
+index
+
+#!/bin/bash
+for file in *.HTM; do
+        name=$(basename "$file" .HTM)        "" is good practice cause file could contain spaces
+        echo mv "$file" "$name.html"         first we run echo to see if it's doing what it's supposed to do. Afterwards we run mv
+done
+
+$ chmod +x rename.sh
+$ ./rename.sh
+mv about.HTM about.html
+mv contact.HTM contact.html
+mv footer.HTM footer.html
+mv header.HTM header.html
+mv index.HTM index.html
+
+#!/bin/bash
+for file in *.HTM; do
+        name=$(basename "$file" .HTM)        "" is good practice cause file could contain spaces
+        mv "$file" "$name.html"         first we run echo to see if it's doing what it's supposed to do. Afterwards we run mv
+done
+
+$ ./rename.sh
+$
+
+
+
+
+
+
 
 
 
