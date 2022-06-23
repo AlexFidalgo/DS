@@ -911,7 +911,78 @@ for line in f.readlines():
 f.close()
 $ ./changeJane.py oldFiles.txt
 
+WEEK 7 FINAL ASSESSMENT ------------------------------------------------------------------------------------------------
+import re
+import csv
+import operator
 
+os_logs = open("syslog.log","r").readlines()
+contagem_dos_logs = dict()
+
+for log in os_logs:
+    error = re.findall(r'ERROR.*\(',log)
+
+    if len(error) != 0:
+        texto_dos_logs = error[0].replace("ERROR","").replace("(","").strip()
+        if texto_dos_logs in contagem_dos_logs.keys():
+            contagem_dos_logs[texto_dos_logs] += 1
+        else:
+            contagem_dos_logs[texto_dos_logs] = 1
+            
+contagem_dos_logs = sorted(contagem_dos_logs.items(), key = operator.itemgetter(1), reverse=True)
+
+with open('error_message.csv', 'w', newline='') as csvfile:
+    writer_do_spam = csv.writer(csvfile, delimiter=',',
+                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    writer_do_spam.writerow(["Error","Count"])
+
+for log in contagem_dos_logs:
+    key,value = log
+    with open('error_message.csv', 'a', newline='') as csvfile:
+        writer_do_spam = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        writer_do_spam.writerow([key,value])
+        
+informacao_dos_count = dict()
+contagem_dos_erros = dict()
+for log in os_logs:
+    username = re.search(r'\(.*\)',log).group().strip("()")
+    error = re.search(r'(ERROR|INFO)',log).group()
+    if error == "ERROR":
+        if username in contagem_dos_erros.keys():
+            contagem_dos_erros[username] += 1
+        else:
+            contagem_dos_erros[username] = 1
+    else:
+        if username in informacao_dos_count.keys():
+            informacao_dos_count[username] += 1
+        else:
+            informacao_dos_count[username] = 1
+
+with open('user_statistics.csv', 'w', newline='') as csvfile:
+    writer_do_spam = csv.writer(csvfile, delimiter=',',
+                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    writer_do_spam.writerow(["Username", "INFO", "ERROR"])
+
+i = set(informacao_dos_count.keys())
+e= set(contagem_dos_erros.keys())
+z = e-i
+d = dict.fromkeys(z,0)
+informacao_dos_count.update(d)
+
+informacao_dos_count = sorted(informacao_dos_count.items(),key=operator.itemgetter(0))
+contagem_dos_erros = sorted(contagem_dos_erros.items(),key=operator.itemgetter(0))
+
+username = [i[0] for i in informacao_dos_count]
+valor1 = [i[1] for i in informacao_dos_count]
+valor2 = [i[1] for i in contagem_dos_erros]
+error_info = zip(valor1,valor2)
+final = list(zip(username,error_info))[:8]
+
+for i,j in final:
+    with open('user_statistics.csv', 'a', newline='') as csvfile:
+        writer_do_spam = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        writer_do_spam.writerow([i,j[0],j[1]]) 
+-----------------------------------------------------------------------------------------------------------------------------------------
 
 
 
