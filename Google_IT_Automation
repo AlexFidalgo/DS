@@ -987,6 +987,7 @@ for i,j in final:
 ******************************************************* GIT AND GITHUB **************************************************
 cd
 cd 'OneDrive - QMC Telecom'/'Área de Trabalho'/Coursera/google/Git_Github
+cd checks
 
 
 diff: takes two files or two directories and shows the differences between them
@@ -1004,6 +1005,8 @@ $ cd checks
 $ git init
 Whenever you clone a repository, the git repository is copied to you computer
 The git directory acts as a database for all the changes tracked in Git and the working tree acts as a sandbox where we can edit the current versions of the files.
+The git directory contains the history of all the files and changes. The working tree contains the current state of the project, including any changes that we've
+made. The staging area contains the changes that have been marked to be included in the next commit
 $ nano Hello.py
 $ git add Hello.py 
 Now Git tracks the Hello.py file. With that, we've added our file to the staging area.
@@ -1022,6 +1025,55 @@ I commited.
 $ git status
 On branch master
 nothing to commit, working tree clean
+
+States of a file:
+- MODIFIED: Changes have been made to this file but they haven't been commited yet (Git won't store any changes until we add them to the staging area
+- STAGED: The changes to the file are ready to be commited to the project
+- COMMITED: The changes made to it are stored in a snapshot in the Git directory
+After modifying a file, we need to stage those changes and then commit them afterwards.
+
+$ nano Hello.py
+-/ modifying the file /-
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   Hello.py
+$ git add Hello.py (this command adds the current changes in the file to the list of changes to be commited; after it, the file is part of the staging area)
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   Hello.py
+$ git commit -m 'Inserts new print.'
+[master 7883e37] Inserts new print.
+ 1 file changed, 1 insertion(+)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+$ mkdir scripts
+$ cd scripts
+$ git init
+Initialized empty Git repository in C:/Users/AlexFidalgoZamikhows/OneDrive - QMC Telecom/Área de Trabalho/Coursera/google/Git_GitHub/scripts/.git/
+$ chmod +x all_checks.py
+$ git status
+On branch master
+No commits yet
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        all_checks.py
+nothing added to commit but untracked files present (use "git add" to track)
+$ git add all_checks.py (modified -> staged)
+$ git commit (staged -> commited)
+
+You can’t commit with an empty commit message.
+
+$ nano all_checks.py
+$ git add all_checks.py
+$ git commit
+$ git commit -m 'Add a check_reboot function'
+
 
 
 
