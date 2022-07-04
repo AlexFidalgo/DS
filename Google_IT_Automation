@@ -1074,7 +1074,52 @@ $ git add all_checks.py
 $ git commit
 $ git commit -m 'Add a check_reboot function'
 
+$ git log
+commit c665c407a0b62cc0de0cde953c6e12639546f648 (HEAD -> master)
+Author: AlexFidalgo <alexfidalgo10@gmail.com>
+Date:   Fri Jul 1 10:49:04 2022 -0300
+    Add a check_reboot function
+commit acce5e0cf809f3d3145f7780648c1ac2f136a3a4
+Author: AlexFidalgo <alexfidalgo10@gmail.com>
+Date:   Fri Jul 1 10:43:29 2022 -0300
+    Create an empty all_checks.py
+    
+$ git config -l
+diff.astextplain.textconv=astextplain
+filter.lfs.clean=git-lfs clean -- %f
+filter.lfs.smudge=git-lfs smudge -- %f
+filter.lfs.process=git-lfs filter-process
+filter.lfs.required=true
+http.sslbackend=openssl
+http.sslcainfo=C:/Program Files/Git/mingw64/ssl/certs/ca-bundle.crt
+core.autocrlf=true
+core.fscache=true
+core.symlinks=false
+pull.rebase=false
+credential.helper=manager-core
+credential.https://dev.azure.com.usehttppath=true
+init.defaultbranch=master
+core.editor=nano
+user.email=alexfidalgo10@gmail.com
+user.name=AlexFidalgo
+core.repositoryformatversion=0
+core.filemode=false
+core.bare=false
+core.logallrefupdates=true
+core.symlinks=false
+core.ignorecase=true
 
+If you've already run git init on a project directory containing a .git subdirectory, you can safely run git init again on the same project directory. The operation 
+is what we call idempotent; running it again doesn't override an existing .git configuration.
+
+git add README
+This command adds changes from the working tree to the staging area i.e., it gathers and prepares files for Git before committing them. In other words, it updates 
+the index with the current content found in the working tree to prepare the content that's staged for the next commit. However, git add doesn't affect the repository 
+in any serious way because changes are not actually recorded until you commit them.
+
+git diff README
+You can see the differences between the older file and the new file. New additions are denoted by green-colored text and a + sign at the start of the line. Any 
+replacements/removal are denoted by text in red-colored text and a - sign at the start of the line.
 
 
 
