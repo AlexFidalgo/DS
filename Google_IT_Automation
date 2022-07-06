@@ -1121,8 +1121,49 @@ git diff README
 You can see the differences between the older file and the new file. New additions are denoted by green-colored text and a + sign at the start of the line. Any 
 replacements/removal are denoted by text in red-colored text and a - sign at the start of the line.
 
+Skipping the Staging Area: we do this by using the dash a-flag to the git commit command; this flag automatically stages every file that's tracked and modified
+before doing the commit letting us skip the git add command. Git commit -a doesn't work on new files because those are untracked.
+git commit -a: shortcut to stage any changes to tracked files and commit them in one step. If the modified file has never been commited to the repo, we'll still
+need to use git add to track it first
 
+$ git commit -a -m "Call check_reboot from main, exit with 1 on error"
+$ git log
+commit 1bfddc8b2a2d061b90bbffbd41205f0466db9a51 (HEAD -> master)
+Author: AlexFidalgo <alexfidalgo10@gmail.com>
+Date:   Wed Jul 6 10:01:42 2022 -0300
+    Call check_reboot from main, exit with 1 on error
 
+Git uses the HEAD alias to represent the currently checked-out snapshot of your project
+
+$ git log -p (shows the actual lines where changes were made)
+
+$ git show c665c407a0b62cc0de0cde953c6e12639546f648 (shows changes during a specific commit, use git log to find out the commit ids)
+
+$ git log --stat
+
+Now I've modified all_checks.py, but not commited yet
+$ git diff (shows the changes)
+If the change was bigger and included several files, we could pass a file by parameter to see the differences relevant to that specific file, instead of all the
+files at the same time
+git add -p (lets us review changes before adding them; git will show us the change being added and ask us if we want to stage it or not) 
+$ git add -p
+$ git diff --staged
+diff --git a/all_checks.py b/all_checks.py
+index 5131528..25f2cb4 100644
+--- a/all_checks.py
++++ b/all_checks.py
+@@ -8,10 +8,11 @@ def check_reboot():
+        return os.path.exist("/run/reboot-required")
+ def main():
++       print("Program initiated")
+        if check_reboot():
+                print("Pending Reboot")
+                sys.exit(1)
+        else:
+                print("No Reboot Pending")
+-               sys.exit(0)O
++               sys.exit(0)
+ main()
 
 
 
