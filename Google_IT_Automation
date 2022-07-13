@@ -1223,9 +1223,31 @@ Untracked files:
 Reset is the counterpart to add. With add, you add changes to the staging area; with reset, you remove changes from the staging area. git reset -p lets us
 choose which specific changes you wanna reset.
 
+git commit --ammend lets us ammend a previous commit; git takes what is currently in the staging area and run the git commit workflow to overwrite the previous commit
+$ touch auto-update.py
+$ touch gather-information.sh
+$ git add auto-update.py
+$ git commit -m 'Add two new scripts'
+[master c98f03e] Add two new scripts
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 auto-update.py
+We forgot to add a file
+$ git add gather-information.sh
+$ git commit --amend
+nano opens up and we can amend our previous commit message
+git commit --amend allows us to modify and add changes to the most recent commit. It rewrites the git history removing the previous commit and replacing it
+with the ammended on (don't use it on public commits (those that have been pushed to a public or shared repository))
 
-
-
+git revert command: creates a commit that contains the inverse of all the changes made in the bad commit in order to cancel them out. We can revert the latest
+commit by using the head alias (head is a pointer to the snapshot of your current commit)
+$ git commit -a -m 'Add call to disk_full function'
+warning: LF will be replaced by CRLF in all_checks.py.
+The file will have its original line endings in your working directory
+[master 239b9be] Add call to disk_full function
+ 1 file changed, 5 insertions(+)
+$ python all_checks.py yields an error
+$ git revert HEAD
+This will rollback the commit, it erases what you've changed in the all_checks.py file, it'll no longer contain the change you made.
 
 
 
