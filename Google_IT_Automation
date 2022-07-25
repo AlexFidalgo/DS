@@ -1249,6 +1249,57 @@ $ python all_checks.py yields an error
 $ git revert HEAD
 This will rollback the commit, it erases what you've changed in the all_checks.py file, it'll no longer contain the change you made.
 
+We can target a specific commit by using its commit ID.
+$ git log -1
+commit 7883e378aba476ed00d67d5636bddf4e28d38811 (HEAD -> master)
+Author: AlexFidalgo <alexfidalgo10@gmail.com>
+Date:   Fri Jul 1 10:32:50 2022 -0300
+    Inserts new print.
+Made some changes. Then:
+$ git log -2
+commit f504d2051c2e89acd3bba366521a4b3bfcc5508c (HEAD -> master)
+Author: AlexFidalgo <alexfidalgo10@gmail.com>
+Date:   Mon Jul 25 09:27:43 2022 -0300
+
+    A commit
+
+commit 76d14192f0f3a10e5505294c3e9fa16c2cf0e185
+Author: AlexFidalgo <alexfidalgo10@gmail.com>
+Date:   Mon Jul 25 09:26:05 2022 -0300
+
+    Some changes
+    
+$ git show 76d14192f0f3a10e5505294c3e9fa16c2cf0e185
+commit 76d14192f0f3a10e5505294c3e9fa16c2cf0e185
+Author: AlexFidalgo <alexfidalgo10@gmail.com>
+Date:   Mon Jul 25 09:26:05 2022 -0300
+    Some changes
+diff --git a/Hello.py b/Hello.py
+index f15b426..425a474 100644
+--- a/Hello.py
++++ b/Hello.py
+@@ -1,2 +1,2 @@
+-print("Hello World")
+-print("Goodbye cruel world")
++print('Hello World')
++print('Goodbye cruel world')
+diff --git a/output.txt b/output.txt
+new file mode 100644
+index 0000000..ecc1dc4
+--- /dev/null
++++ b/output.txt
+@@ -0,0 +1,3 @@
++Hello World
++Goodbye cruel world
++Hola, que tal
+
+Resetting a commit replaces the commit entirely rather than creating a new one. Since other developers may have based their work on that commit, so this could 
+cause problems for other developers.
+git revert will create a new commit to reverse the previous one, and is the best option for undoing commits on public branches.
+
+
+
+
 
 
 
