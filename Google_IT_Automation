@@ -1297,13 +1297,82 @@ Resetting a commit replaces the commit entirely rather than creating a new one. 
 cause problems for other developers.
 git revert will create a new commit to reverse the previous one, and is the best option for undoing commits on public branches.
 
+BRANCHING AND MERGING
+Branch: pointer to a particular commit, it represents an independent line of development in a project of which the commit it points to is the latest link
+in a chain of development history.
+The default branch that git creates when a new repository is initialized is called master.
+When you want to develop a feature or try something new on your project, you can create a separate branch without worrying about messing up this current working state.
+You can merge back into the master branch when you've got something good.
 
+git branch command: used to list, create, delete and manipulate branches
+$ git branch
+* master
+We'll now create a new feature branch
+$ git branch new-feature
+$ git branch
+* master
+  new-feature
+Asterisk indicates current branch we're working on
 
+git checkout: used to check out the latest snapshot for both files and for branches
+$ git checkout new-feature
+Switched to branch 'new-feature'
+$ git branch
+  master
+* new-feature
 
+We can create a new branch and switch to it immediately
+$ git checkout -b even-better-feature
+Switched to a new branch 'even-better-feature'
+$ nano free_memory.py
+$ git add free_memory.py
+$ git commit -m 'Add an empty free_memory.py'
+$ git log -2
+commit ae59c9b6f8a8a48974ca77c12c67ed4e6b3c89e8 (HEAD -> even-better-feature)
+Author: AlexFidalgo <alexfidalgo10@gmail.com>
+Date:   Wed Jul 27 13:19:54 2022 -0300
+    Add an empty free_memory.py
+commit f9626bf7094b2f86a67ac68ff1fa39daddff7918 (new-feature, master)
+Author: AlexFidalgo <alexfidalgo10@gmail.com>
+Date:   Mon Jul 25 09:49:43 2022 -0300
+    commit
+This result shows us that the even-better-feature is ahead of the master and new-feature branches
 
+$ git status
+On branch even-better-feature
+nothing to commit, working tree clean
 
+$ git checkout master
+Switched to branch 'master'
+$ git log -2
+commit f9626bf7094b2f86a67ac68ff1fa39daddff7918 (HEAD -> master, new-feature)
+Author: AlexFidalgo <alexfidalgo10@gmail.com>
+Date:   Mon Jul 25 09:49:43 2022 -0300
+    commit
+commit 182c1ba24d93aeed6992f87b73f4db4979661427
+Author: AlexFidalgo <alexfidalgo10@gmail.com>
+Date:   Mon Jul 25 09:48:52 2022 -0300
+    Revert "Some changes"
+    This reverts commit 76d14192f0f3a10e5505294c3e9fa16c2cf0e185.
+$ ls -l
+total 1
+-rw-r--r-- 1 AzureAD+AlexFidalgoZamikhows 4096 69 Jul 25 09:47 Hello.py
+free_memory.py isn't there; this shows that when we switch branches in git, the working directory and git history will change to reflect the snapshot of our
+project in that branch
 
+How does git checkout switch branches? By updating the working tree to match the selected branch; the HEAD is moved to the relevant commit on the specified branch.
 
+To delete a branch:
+$ git branch
+  even-better-feature
+* master
+  new-feature
+$ git branch -d new-feature
+Deleted branch new-feature (was f9626bf).
+If there are changes in the branch that we want to delete that haven't been merged back into the master branch, git will let us know with an error
+$ git branch -d even-better-feature
+error: The branch 'even-better-feature' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D even-better-feature'.
 
 
 
